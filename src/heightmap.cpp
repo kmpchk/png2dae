@@ -82,7 +82,7 @@ static float avgnonneg(float zp, float z1, float z2, float z3) {
 }
 
 static float hmzat(const Heightmap *hm, unsigned int x, unsigned int y) {
-    return 1.0 + (5.0 * hm->data[(hm->width * y) + x]);
+    return 1.0 + (0.25 * hm->data[(hm->width * y) + x]);
 }
 
 trix_result Surface(trix_mesh *mesh, const trix_vertex *v1, const trix_vertex *v2, const trix_vertex *v3, const trix_vertex *v4) {
@@ -270,7 +270,7 @@ trix_result Mesh(const Heightmap *hm, trix_mesh *mesh) {
     return TRIX_OK;
 }
 
-int HeightmapToSTL(Heightmap *hm)
+int HeightmapToSTL(Heightmap *hm, float zScale)
 {
     trix_result r;
     trix_mesh *mesh;
@@ -283,7 +283,6 @@ int HeightmapToSTL(Heightmap *hm)
         return (int)r;
     }
 
-    // writes to stdout if CONFIG.output is null, otherwise writes to path it names
     if ((r = trixWrite(mesh, "test.stl", TRIX_STL_BINARY)) != TRIX_OK) {
         return (int)r;
     }

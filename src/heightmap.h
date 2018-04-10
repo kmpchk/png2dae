@@ -19,7 +19,7 @@ typedef struct {
 
 Heightmap* ReadHeightmap(const char *path);
 void ScanHeightmap(Heightmap *hm);
-int HeightmapToSTL(Heightmap *hm);
+int HeightmapToSTL(Heightmap *hm, float zScale);
 void FreeHeightmap(Heightmap **hm);
 
 #endif // HEIGHTMAP
