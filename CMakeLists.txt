@@ -3,7 +3,7 @@ project(png2dae)
 
 set(CMAKE_CXX_STANDARD 11)
 
-find_package(Boost 1.58.0 COMPONENTS system filesystem REQUIRED)
+find_package(Boost 1.58.0 COMPONENTS system filesystem program_options REQUIRED)
 find_package(ImageMagick COMPONENTS Magick++)
 find_package(OpenCV REQUIRED)
 
@@ -29,7 +29,7 @@ if(OpenCV_FOUND)
 
 endif()
 
-add_executable(png2dae src/main.cpp)
+add_executable(png2dae src/main.cpp src/utils.h src/utils.cpp src/types.h src/png2stl.h src/png2stl.cpp src/heightmap.h src/heightmap.cpp src/stb_image.cpp src/stb_image.h src/libtrix.cpp src/libtrix.h)
 
 
 if(Boost_FOUND)
