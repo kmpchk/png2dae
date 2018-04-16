@@ -9,6 +9,7 @@
 #include "boost/program_options.hpp"
 #include "boost/filesystem.hpp"
 #include <iostream>
+#include "MeshLoader.h"
 
 namespace po = boost::program_options;
 using namespace std;
@@ -46,13 +47,22 @@ int main(int argc, char** argv)
         cerr << "Exception of unknown type!\n";
     } */
 
-    char* szFileName = argv[1];
+    /*char* szFileName = argv[1];
     char* szFileOutputName = argv[2];
     float zScale = atof(argv[3]);
     printf("input:= %s, output:= %s, z:= %f\n", szFileName, szFileOutputName, zScale);
     STL_CONFIG cfg;
     cfg.szOutputFileName = szFileOutputName;
     cfg.zScale = zScale;
-    PNG2STL::Png2Stl(szFileName, &cfg);
+    PNG2STL::Png2Stl(szFileName, &cfg);*/
+
+    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
+
+    Mesh* mesh = new Mesh(argv[1]);
+    while (!glfwWindowShouldClose(window)) {
+        mesh->render();
+    }
+    delete mesh;
+
     return 0;
 }

@@ -6,6 +6,18 @@ set(CMAKE_CXX_STANDARD 11)
 find_package(Boost 1.58.0 COMPONENTS system filesystem program_options REQUIRED)
 find_package(ImageMagick COMPONENTS Magick++)
 find_package(OpenCV REQUIRED)
+find_package(Assimp REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+find_package(glfw3 REQUIRED)
+
+include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
+
+if(Assimp_FOUND)
+
+    include_directories(${Assimp_INCLUDE_DIRS})
+
+endif()
 
 if(Boost_FOUND)
 
@@ -29,8 +41,18 @@ if(OpenCV_FOUND)
 
 endif()
 
-add_executable(png2dae src/main.cpp src/utils.h src/utils.cpp src/types.h src/png2stl.h src/png2stl.cpp src/heightmap.h src/heightmap.cpp src/stb_image.cpp src/stb_image.h src/libtrix.cpp src/libtrix.h)
 
+add_executable(png2dae src/main.cpp src/texture.h src/MeshLoader.h src/utils.h src/utils.cpp src/types.h src/png2stl.h src/png2stl.cpp src/heightmap.h src/heightmap.cpp src/stb_image.cpp src/stb_image.h src/libtrix.cpp src/libtrix.h src/MeshLoader.cpp)
+
+target_link_libraries(png2dae glfw)
+
+target_link_libraries(png2dae ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
+
+if(Assimp_FOUND)
+
+    target_link_libraries(png2dae ${Assimp_LIBRARIES})
+
+endif()
 
 if(Boost_FOUND)
 
