@@ -16,12 +16,14 @@ long File::GetFileSize(IN char* szFileName)
     return in.tellg();
 }
 
-char* File::ReadFile(IN char* szFileName, OUT char* szBuffer, IN ulong fileSize)
+void File::ReadFile(IN char* szFileName, OUT char* szBuffer, IN ulong size)
 {
     std::ifstream inputFile(szFileName, std::ios::in | std::ios::binary);
     //fileSize = GetFileSize(inputFile);
-    inputFile.read(szBuffer, fileSize);
-    return szBuffer;
+    //ulong size = GetFileSize(inputFile);
+    //printf("ISize:=%d, CSize:=%d\n", fileSize, size);
+    inputFile.read(szBuffer, size);
+    //return szBuffer;
 }
 
 const char* Path::ExtractFileName(IN char* szPath)
@@ -50,5 +52,17 @@ size_t Parse::StrToInt(char* szNumber)
 float Parse::StrToFloat(char* szNumber)
 {
     return atof(szNumber);
+}
+
+bool IMG::CheckPngHeader(char* fileHeader)
+{
+    uint8_t png_signature[8] = { 137,80,78,71,13,10,26,10 };
+    bool fOk = false;
+    for(int i = 0; i < 8; i++)
+    {
+        if((uint8_t)fileHeader[i] != png_signature[i])
+            return fOk;
+    }
+    return !fOk;
 }
 

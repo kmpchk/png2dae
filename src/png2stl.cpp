@@ -6,8 +6,9 @@
 #include "utils.h"
 #include "stb_image.h"
 #include "heightmap.h"
+#include "png2dae.h"
 
-void PNG2STL::Png2Stl(char* szPngFileName, PSTL_CONFIG stlConfig)
+/*void PNG2STL::Png2Stl(char* szPngFileName, PSTL_CONFIG stlConfig)
 {
     HEIGHTMAP* hm = NULL;
     hm = PngToHeightmap(szPngFileName);
@@ -20,7 +21,7 @@ void PNG2STL::Png2Stl(char* szPngFileName, PSTL_CONFIG stlConfig)
 
     FreeHeightmap(&hm);
 
-}
+}*/
 
 bool PNG2STL::CheckPngHeader(char* fileHeader)
 {

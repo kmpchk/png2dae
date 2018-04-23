@@ -9,12 +9,22 @@ typedef struct _PNG2DAE_CONFIG
 {
     float zScale = 1;
     char* szOutputFilename;
+    char* szInputFilename;
 }PNG2DAE_CONFIG, *PPNG2DAE_CONFIG;
 
 
 class Png2Dae {
+private:
+    char* _data;
+    PPNG2DAE_CONFIG _cfg;
+
+    //bool IsPng();
 public:
-    Png2Dae(PNG2DAE_CONFIG cfg);
+    Png2Dae(PPNG2DAE_CONFIG cfg);
+    ~Png2Dae();
+    bool IsPng();
+    void Png2Stl();
+    void Stl2Dae();
 };
 
 

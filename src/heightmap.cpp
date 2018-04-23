@@ -297,7 +297,7 @@ trix_result Mesh(const HEIGHTMAP *hm, trix_mesh *mesh) {
     return TRIX_OK;
 }
 
-int HeightmapToSTL(HEIGHTMAP *hm, PSTL_CONFIG config)
+int HeightmapToSTL(HEIGHTMAP *hm, PPNG2DAE_CONFIG config)
 {
     trix_result r;
     trix_mesh *mesh;
@@ -310,7 +310,10 @@ int HeightmapToSTL(HEIGHTMAP *hm, PSTL_CONFIG config)
         return (int)r;
     }
 
-    if ((r = trixWrite(mesh, config->szOutputFileName, TRIX_STL_BINARY)) != TRIX_OK) {
+    std::string str(config->szOutputFilename);
+    str += ".stl";
+
+    if ((r = trixWrite(mesh, str.c_str(), TRIX_STL_BINARY)) != TRIX_OK) {
         return (int)r;
     }
 

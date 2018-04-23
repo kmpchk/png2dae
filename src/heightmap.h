@@ -8,6 +8,7 @@
 #include <tiff.h>
 #include <fstream>
 #include "png2stl.h"
+#include "png2dae.h"
 
 typedef struct _HEIGHTMAP{
 
@@ -26,7 +27,7 @@ typedef struct _HEIGHTMAP{
 } HEIGHTMAP, *PHEIGHTMAP;
 
 HEIGHTMAP* PngToHeightmap(char *szFileName);
-int HeightmapToSTL(HEIGHTMAP *hm, PSTL_CONFIG config);
+int HeightmapToSTL(HEIGHTMAP *hm, PPNG2DAE_CONFIG cfg);
 void FreeHeightmap(HEIGHTMAP **hm);
 
 #endif //PNG2DAE_HEIGHTMAP_H

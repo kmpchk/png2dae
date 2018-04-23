@@ -24,7 +24,7 @@ namespace File
     long GetFileSize(IN std::ifstream& file);
     long GetFileSize(IN char* szFileName);
 
-    char* ReadFile(IN char* szFileName, OUT char* szBuffer, IN ulong fileSize);
+    void ReadFile(IN char* szFileName, OUT char* szBuffer, IN ulong size);
 }
 
 namespace Path
@@ -37,6 +37,11 @@ namespace Parse
 {
     size_t StrToInt(char* szNumber);
     float StrToFloat(char* szNumber);
+}
+
+namespace IMG
+{
+    bool CheckPngHeader(char* fileHeader);
 }
 
 #endif //PNG2DAE_UTILS_H
