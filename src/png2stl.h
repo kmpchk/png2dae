@@ -6,6 +6,7 @@
 #define PNG2DAE_PNG_H
 
 #include <tiff.h>
+#include "png2dae.h"
 
 typedef struct _STL_CONFIG
 {
@@ -15,7 +16,7 @@ typedef struct _STL_CONFIG
 
 namespace PNG2STL
 {
-    void Png2Stl(char* szPngFileName, PSTL_CONFIG stlConfig);
+    void Convert(PPNG2DAE_CONFIG Config);
     bool CheckPngHeader(char* szFile);
 
 }

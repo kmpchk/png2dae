@@ -4,10 +4,17 @@ project(png2dae)
 set(CMAKE_CXX_STANDARD 11)
 
 find_package(Assimp REQUIRED)
+find_package(Boost 1.58.0 COMPONENTS system filesystem program_options REQUIRED)
 
 if(Assimp_FOUND)
 
     include_directories(${Assimp_INCLUDE_DIRS})
+
+endif()
+
+if(Boost_FOUND)
+
+    include_directories(${Boost_INCLUDE_DIRS})
 
 endif()
 
@@ -18,5 +25,11 @@ target_link_libraries(png2dae ${ASSIMP_LIBRARIES})
 if(Assimp_FOUND)
 
     target_link_libraries(png2dae ${Assimp_LIBRARIES})
+
+endif()
+
+if(Boost_FOUND)
+
+    target_link_libraries(png2dae ${Boost_LIBRARIES})
 
 endif()

@@ -10,9 +10,12 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include "png2dae.h"
+
 namespace STL2DAE
 {
     void Convert(char* szStlFilename);
+    void Convert(PPNG2DAE_CONFIG cfg);
 }
 
 #endif //PNG2DAE_STL2DAE_H

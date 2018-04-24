@@ -5,9 +5,11 @@
 #ifndef PNG2DAE_H
 #define PNG2DAE_H
 
+enum ConvertMode {MPNG2DAE=0, MPNG2STL, MSTL2DAE};
+
 typedef struct _PNG2DAE_CONFIG
 {
-    float zScale = 1;
+    float zScale = 0.25;
     char* szOutputFilename;
     char* szInputFilename;
 }PNG2DAE_CONFIG, *PPNG2DAE_CONFIG;
@@ -25,6 +27,7 @@ public:
     bool IsPng();
     void Png2Stl();
     void Stl2Dae();
+    void Convert();
 };
 
 

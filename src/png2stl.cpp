@@ -8,12 +8,12 @@
 #include "heightmap.h"
 #include "png2dae.h"
 
-/*void PNG2STL::Png2Stl(char* szPngFileName, PSTL_CONFIG stlConfig)
+void PNG2STL::Convert(PPNG2DAE_CONFIG config)
 {
     HEIGHTMAP* hm = NULL;
-    hm = PngToHeightmap(szPngFileName);
+    hm = PngToHeightmap(config->szInputFilename);
     printf("Width:= %d, Height:= %d, Size:= %d, Depth:= %d/n", hm->width, hm->height, hm->size, hm->depth);
-    if(HeightmapToSTL(hm, stlConfig) != 0)
+    if(HeightmapToSTL(hm, config) != 0)
     {
         printf("[ERROR]HeightmapToSTL");
         return;
@@ -21,7 +21,7 @@
 
     FreeHeightmap(&hm);
 
-}*/
+}
 
 bool PNG2STL::CheckPngHeader(char* fileHeader)
 {

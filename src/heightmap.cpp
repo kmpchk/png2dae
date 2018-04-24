@@ -108,8 +108,8 @@ static float avgnonneg(float zp, float z1, float z2, float z3) {
     return sum / (float)n;
 }
 
-static float hmzat(const HEIGHTMAP *hm, unsigned int x, unsigned int y) {
-    return 1.0 + (0.25 * hm->data[(hm->width * y) + x]);
+static float hmzat(const HEIGHTMAP *hm, unsigned int x, unsigned int y, float z) {
+    return 1.0 + (z * hm->data[(hm->width * y) + x]);
 }
 
 trix_result Surface(trix_mesh *mesh, const trix_vertex *v1, const trix_vertex *v2, const trix_vertex *v3, const trix_vertex *v4) {
@@ -135,11 +135,12 @@ trix_result Surface(trix_mesh *mesh, const trix_vertex *v1, const trix_vertex *v
     return TRIX_OK;
 }
 
-trix_result Mesh(const HEIGHTMAP *hm, trix_mesh *mesh) {
+trix_result Mesh(const HEIGHTMAP *hm, trix_mesh *mesh, PPNG2DAE_CONFIG cfg) {
     unsigned int x, y;
     float az, bz, cz, dz, ez, fz, gz, hz;
     trix_vertex vp, v1, v2, v3, v4;
     trix_result r;
+    float z = cfg->zScale;
 
     for (y = 0; y < hm->height; y++) {
         for (x = 0; x < hm->width; x++) {
@@ -183,55 +184,55 @@ trix_result Mesh(const HEIGHTMAP *hm, trix_mesh *mesh) {
             if (x == 0 || y == 0) {
                 az = -1;
             } else {
-                az = hmzat(hm, x - 1, y - 1);
+                az = hmzat(hm, x - 1, y - 1, z);
             }
 
             if (y == 0) {
                 bz = -1;
             } else {
-                bz = hmzat(hm, x, y - 1);
+                bz = hmzat(hm, x, y - 1, z);
             }
 
             if (y == 0 || x + 1 == hm->width) {
                 cz = -1;
             } else {
-                cz = hmzat(hm, x + 1, y - 1);
+                cz = hmzat(hm, x + 1, y - 1, z);
             }
 
             if (x + 1 == hm->width) {
                 dz = -1;
             } else {
-                dz = hmzat(hm, x + 1, y);
+                dz = hmzat(hm, x + 1, y, z);
             }
 
             if (x + 1 == hm->width || y + 1 == hm->height) {
                 ez = -1;
             } else {
-                ez = hmzat(hm, x + 1, y + 1);
+                ez = hmzat(hm, x + 1, y + 1, z);
             }
 
             if (y + 1 == hm->height) {
                 fz = -1;
             } else {
-                fz = hmzat(hm, x, y + 1);
+                fz = hmzat(hm, x, y + 1, z);
             }
 
             if (y + 1 == hm->height || x == 0) {
                 gz = -1;
             } else {
-                gz = hmzat(hm, x - 1, y + 1);
+                gz = hmzat(hm, x - 1, y + 1, z);
             }
 
             if (x == 0) {
                 hz = -1;
             } else {
-                hz = hmzat(hm, x - 1, y);
+                hz = hmzat(hm, x - 1, y, z);
             }
 
             // pixel vertex
             vp.x = (float)x;
             vp.y = (float)(hm->height - y);
-            vp.z = hmzat(hm, x, y);
+            vp.z = hmzat(hm, x, y, z);
 
             // Vertex 1
             v1.x = (float)x - 0.5;
@@ -306,7 +307,7 @@ int HeightmapToSTL(HEIGHTMAP *hm, PPNG2DAE_CONFIG config)
         return (int)r;
     }
 
-    if ((r = Mesh(hm, mesh)) != TRIX_OK) {
+    if ((r = Mesh(hm, mesh, config)) != TRIX_OK) {
         return (int)r;
     }
 

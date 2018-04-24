@@ -51,6 +51,12 @@ void Png2Dae::Stl2Dae()
     aiReturn result = exporter.Export(scene, "collada", dae_file.c_str(), 0);
 }
 
+void Png2Dae::Convert()
+{
+    Png2Stl();
+    Stl2Dae();
+}
+
 Png2Dae::Png2Dae(PPNG2DAE_CONFIG cfg)
 {
     _data = new char[8];
